@@ -1,6 +1,10 @@
   
   //1. Use the inquirer npm package to get user input.
-  import inquirer from 'inquirer';
+  import inquirer from "inquirer";
+  //var qr = require('qr-image');
+  import qr from "qr-image";
+
+  import fs from "fs";
 
   inquirer
   .prompt([
@@ -11,6 +15,8 @@
   .then((answers) => {
     // Use user feedback for... whatever!!
    const url=answers.URL;
+   var qr_svg = qr.image(url);
+    qr_svg.pipe(fs.createWriteStream("qr_img.png"));
   })
   .catch((error) => {
     if (error.isTtyError) {
@@ -19,6 +25,7 @@
       // Something else went wrong
     }
   });
+
   
 
 
